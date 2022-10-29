@@ -20,13 +20,14 @@ no_of_measurement = 10  # 3
 list_of_measured_value = []
 list_of_estimated_value = []
 
+print("  measurred_temp \tkalman_gain \testimate_of_value \terror_in_estimate")
 for i in range(no_of_measurement):
     measurred_temp = random.uniform(30, 35)  # m[i]
     kalman_gain = get_kalman_gain(error_in_estimate, error_in_measurement)
     estimate_of_value = estimate_of_value + \
         kalman_gain * (measurred_temp - estimate_of_value)
     error_in_estimate = (1 - kalman_gain) * error_in_estimate
-    print([measurred_temp, kalman_gain, estimate_of_value, error_in_estimate])
+    print(f'  {measurred_temp:.2f}  \t\t{kalman_gain:.2f}\t\t{estimate_of_value:.2f} \t\t\t{error_in_estimate:.2f}')
     list_of_estimated_value.append(estimate_of_value)
     list_of_measured_value.append(measurred_temp)
 
