@@ -178,17 +178,45 @@ class HiddenMarkovChain:
         return score
 
 
-a1 = ProbabilityVector({'1H': 0.7, '2C': 0.3})
-a2 = ProbabilityVector({'1H': 0.4, '2C': 0.6})
+# no of states
+n = 5
+states = ('jar_1', 'jar_2', 'jar_3', 'jar_4', 'jar_5',)
+# no of diff observation outcome
+m = 3
+outcomes = ('red', 'green', 'blue')
+# length of observation sequence
+t = 10
 
-b1 = ProbabilityVector({'1S': 0.1, '2M': 0.4, '3L': 0.5})
-b2 = ProbabilityVector({'1S': 0.7, '2M': 0.2, '3L': 0.1})
+a1 = ProbabilityVector(
+    {'jar_1': 0.2, 'jar_2': 0.3, 'jar_3': 0.13, 'jar_4': 0.07, 'jar_5': 0.3})
+a2 = ProbabilityVector(
+    {'jar_1': 0.2, 'jar_2': 0.3, 'jar_3': 0.13, 'jar_4': 0.07, 'jar_5': 0.3})
+a3 = ProbabilityVector(
+    {'jar_1': 0.2, 'jar_2': 0.3, 'jar_3': 0.13, 'jar_4': 0.07, 'jar_5': 0.3})
+a4 = ProbabilityVector(
+    {'jar_1': 0.2, 'jar_2': 0.3, 'jar_3': 0.13, 'jar_4': 0.07, 'jar_5': 0.3})
+a5 = ProbabilityVector(
+    {'jar_1': 0.2, 'jar_2': 0.3, 'jar_3': 0.13, 'jar_4': 0.07, 'jar_5': 0.3})
 
-A = ProbabilityMatrix({'1H': a1, '2C': a2})
-B = ProbabilityMatrix({'1H': b1, '2C': b2})
-pi = ProbabilityVector({'1H': 0.6, '2C': 0.4})
+b1 = ProbabilityVector({'red': 0.1, 'green': 0.4, 'blue': 0.5})
+b2 = ProbabilityVector({'red': 0.9, 'green': 0.04, 'blue': 0.06})
+b3 = ProbabilityVector({'red': 0.15, 'green': 0.45, 'blue': 0.40})
+b4 = ProbabilityVector({'red': 0.5, 'green': 0.4, 'blue': 0.1})
+b5 = ProbabilityVector({'red': 0.3, 'green': 0.4, 'blue': 0.3})
+
+A = ProbabilityMatrix(
+    {'jar_1': a1, 'jar_2': a2, 'jar_3': a3, 'jar_4': a4, 'jar_5': a5})
+B = ProbabilityMatrix(
+    {'jar_1': b1, 'jar_2': b2, 'jar_3': b3, 'jar_4': b4, 'jar_5': b5})
+pi = ProbabilityVector(
+    {'jar_1': 0.2, 'jar_2': 0.3, 'jar_3': 0.13, 'jar_4': 0.07, 'jar_5': 0.3})
 
 hmc = HiddenMarkovChain(A, B, pi)
-observations = ['1S', '2M', '3L', '2M', '1S']
+observations = ['red', 'green', 'red', 'red', 'blue']
 
-print("Score for {} is {:f}.".format(observations, hmc.score(observations)))
+print("\nλ is { A, B, pi }")
+print(f"\nA is \n{A.df}")
+print(f"\nB is \n{B.df}")
+print(f"\npi is \n{pi.df}")
+print("\nP(O|λ) for O {} is {:f}".format(
+    observations, hmc.score(observations)))
