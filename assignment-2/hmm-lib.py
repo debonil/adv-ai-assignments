@@ -212,7 +212,7 @@ pi = ProbabilityVector(
     {'jar_1': 0.2, 'jar_2': 0.3, 'jar_3': 0.13, 'jar_4': 0.07, 'jar_5': 0.3})
 
 hmc = HiddenMarkovChain(A, B, pi)
-observations = ['red', 'green', 'red', 'red', 'blue']
+observations = ['red', 'green', 'red', 'red', 'blue', 'blue', 'blue', 'green', 'red','red']
 
 print("\nλ is { A, B, pi }")
 print(f"\nA is \n{A.df}")
