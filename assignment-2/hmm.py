@@ -18,7 +18,7 @@ def forward(N, T, O, a, b, pi):
 
 
 # def calc_POL(A: dict[str, dict[str, float]], B: dict[str, dict[str, float]], pi: dict[str, float], observations: list[str]):
-def calc_POL(A: dict[str, dict], B: dict[str, dict], pi: dict[str, float], observations: list[str]):
+def calc_POL(A: dict, B: dict, pi: dict, observations: list):
     states = list(A.keys())
     N = len(states)
     outcomes = list(list(B.values())[0].keys())
