@@ -12,18 +12,19 @@ def forward(N, T, O, a, b, pi):
             alpha_a = 0
             for i in range(N):
                 alpha_a += alpha[t - 1][i]*a[i][j]
-            alpha[t, j] = alpha_a * b[j][ O[t]]
+            alpha[t, j] = alpha_a * b[j][O[t]]
 
     return alpha
 
 
-def calc_POL(A: dict[str, dict[str, float]], B: dict[str, dict[str, float]], pi: dict[str, float], observations: list[str]):
-    states =  list(A.keys())
+# def calc_POL(A: dict[str, dict[str, float]], B: dict[str, dict[str, float]], pi: dict[str, float], observations: list[str]):
+def calc_POL(A: dict[str, dict], B: dict[str, dict], pi: dict[str, float], observations: list[str]):
+    states = list(A.keys())
     N = len(states)
     outcomes = list(list(B.values())[0].keys())
     M = len(outcomes)
     T = len(observations)
-    O = list(map(lambda x: outcomes.index(x) , observations))
+    O = list(map(lambda x: outcomes.index(x), observations))
     a = [list(A[x].values()) for x in A]
     b = [list(B[x].values()) for x in B]
     alpha = forward(N, T, O, a, b, list(pi.values()))
@@ -68,7 +69,8 @@ pi = (
     {'jar_1': 0.2, 'jar_2': 0.3, 'jar_3': 0.13, 'jar_4': 0.07, 'jar_5': 0.3})
 
 lamda = (A, B, pi)
-observations = ['red', 'green', 'red', 'red', 'blue', 'blue', 'blue', 'green', 'red','red']
+observations = ['red', 'green', 'red', 'red',
+                'blue', 'blue', 'blue', 'green', 'red', 'red']
 prob_O_given_lamda = calc_POL(*lamda, observations)
 
 
